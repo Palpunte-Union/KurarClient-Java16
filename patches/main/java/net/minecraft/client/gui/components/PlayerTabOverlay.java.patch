@@ -1,0 +1,32 @@
+--- a/main/java/net/minecraft/client/gui/components/PlayerTabOverlay.java
++++ b/main/java/net/minecraft/client/gui/components/PlayerTabOverlay.java
+@@ -62,7 +62,7 @@
+ 
+     private Component decorateName(PlayerInfo p_94552_, MutableComponent p_94553_)
+     {
+-        return p_94552_.getGameMode() == GameType.SPECTATOR ? p_94553_.withStyle(ChatFormatting.ITALIC) : p_94553_;
++        return p_94553_;
+     }
+ 
+     public void setVisible(boolean pVisible)
+@@ -203,9 +203,9 @@
+                     k2 += 9;
+                 }
+ 
+-                this.minecraft.font.drawShadow(p_94545_, this.getNameForDisplay(playerinfo1), (float)k2, (float)l2, playerinfo1.getGameMode() == GameType.SPECTATOR ? -1862270977 : -1);
++                this.minecraft.font.drawShadow(p_94545_, this.getNameForDisplay(playerinfo1), (float)k2, (float)l2, -1);
+ 
+-                if (p_94548_ != null && playerinfo1.getGameMode() != GameType.SPECTATOR)
++                if (p_94548_ != null)
+                 {
+                     int l5 = k2 + i + 1;
+                     int i6 = l5 + l;
+@@ -390,7 +390,7 @@
+         {
+             PlayerTeam playerteam = p_94564_.getTeam();
+             PlayerTeam playerteam1 = p_94565_.getTeam();
+-            return ComparisonChain.start().compareTrueFirst(p_94564_.getGameMode() != GameType.SPECTATOR, p_94565_.getGameMode() != GameType.SPECTATOR).compare(playerteam != null ? playerteam.getName() : "", playerteam1 != null ? playerteam1.getName() : "").compare(p_94564_.getProfile().getName(), p_94565_.getProfile().getName(), String::compareToIgnoreCase).result();
++            return ComparisonChain.start().compare(playerteam != null ? playerteam.getName() : "", playerteam1 != null ? playerteam1.getName() : "").compare(p_94564_.getProfile().getName(), p_94565_.getProfile().getName(), String::compareToIgnoreCase).result();
+         }
+     }
+ }

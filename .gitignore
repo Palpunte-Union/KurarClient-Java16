@@ -1,0 +1,25 @@
+.gradle
+build/
+
+# Source code
+src/main/java/com/*
+src/main/java/net/*
+
+root/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+#IDE files
+.idea
+*.iml
+
+src/main/resources/assets/*
+src/main/resources/data/*
+
+log4j2.xml
+pack.png
+version.json

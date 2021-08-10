@@ -1,0 +1,10 @@
+--- a/main/java/net/minecraft/client/ClientBrandRetriever.java
++++ b/main/java/net/minecraft/client/ClientBrandRetriever.java
+@@ -9,6 +9,6 @@
+     @DontObfuscate
+     public static String getClientModName()
+     {
+-        return "vanilla";
++        return "kurar";
+     }
+ }

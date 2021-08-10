@@ -1,0 +1,69 @@
+--- a/main/java/net/minecraft/client/Minecraft.java
++++ b/main/java/net/minecraft/client/Minecraft.java
+@@ -253,6 +253,9 @@
+ import org.apache.logging.log4j.LogManager;
+ import org.apache.logging.log4j.Logger;
+ import org.lwjgl.util.tinyfd.TinyFileDialogs;
++import si.f5.pa_union.discord.DiscordRPCLink;
++import zsawyer.mods.mumblelink.MumbleLinkImpl;
++import zsawyer.mods.mumblelink.UpdateTicker;
+ 
+ public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements SnooperPopulator, WindowEventHandler
+ {
+@@ -404,6 +407,7 @@
+         this.socialInteractionsService = this.createSocialInteractions(yggdrasilauthenticationservice, pGameConfig);
+         this.user = pGameConfig.user.user;
+         LOGGER.info("Setting user: {}", (Object)this.user.getName());
++        DiscordRPCLink.UserName = this.user.getName();
+         LOGGER.debug("(Session ID is {})", (Object)this.user.getSessionId());
+         this.demo = pGameConfig.game.demo;
+         this.allowsMultiplayer = !pGameConfig.game.disableMultiplayer;
+@@ -586,13 +590,8 @@
+ 
+     private String createTitle()
+     {
+-        StringBuilder stringbuilder = new StringBuilder("Minecraft");
++        StringBuilder stringbuilder = new StringBuilder("Kurar Client");
+ 
+-        if (this.isProbablyModded())
+-        {
+-            stringbuilder.append("*");
+-        }
+-
+         stringbuilder.append(" ");
+         stringbuilder.append(SharedConstants.getCurrentVersion().getName());
+         ClientPacketListener clientpacketlistener = this.getConnection();
+@@ -604,18 +603,22 @@
+             if (this.singleplayerServer != null && !this.singleplayerServer.isPublished())
+             {
+                 stringbuilder.append(I18n.m_118938_("title.singleplayer"));
++                DiscordRPCLink.details = I18n.m_118938_("title.singleplayer");
+             }
+             else if (this.isConnectedToRealms())
+             {
+                 stringbuilder.append(I18n.m_118938_("title.multiplayer.realms"));
++                DiscordRPCLink.details = I18n.m_118938_("title.multiplayer.realms");
+             }
+             else if (this.singleplayerServer == null && (this.currentServer == null || !this.currentServer.isLan()))
+             {
+                 stringbuilder.append(I18n.m_118938_("title.multiplayer.other"));
++                DiscordRPCLink.details = I18n.m_118938_("title.multiplayer.other");
+             }
+             else
+             {
+                 stringbuilder.append(I18n.m_118938_("title.multiplayer.lan"));
++                DiscordRPCLink.details = I18n.m_118938_("title.multiplayer.lan");
+             }
+         }
+ 
+@@ -2051,7 +2054,10 @@
+         this.profiler.popPush("keyboard");
+         this.keyboardHandler.tick();
+         this.profiler.pop();
++        if(UpdateTicker.i) {
++            MumbleLinkImpl.instance.getUpdateTicker().tickEnd();
+     }
++    }
+ 
+     private boolean isMultiplayerServer()
+     {

@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'gradle.plugin.uk.jamierocks:propatcher:2.0.0'
+    }
+}
+
+apply plugin: 'uk.jamierocks.propatcher'
+apply plugin: 'java'
+
+group = 'com.github.eighty88'
+version = '1.17.1'
+
+patches {
+    rootDir = file('root')
+    target = file('src')
+    patches = file('patches')
+}

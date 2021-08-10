@@ -1,0 +1,20 @@
+--- a/main/java/net/minecraft/client/gui/screens/ConnectScreen.java
++++ b/main/java/net/minecraft/client/gui/screens/ConnectScreen.java
+@@ -24,6 +24,7 @@
+ import net.minecraft.network.protocol.login.ServerboundHelloPacket;
+ import org.apache.logging.log4j.LogManager;
+ import org.apache.logging.log4j.Logger;
++import si.f5.pa_union.reconnect.Reconnect;
+ 
+ public class ConnectScreen extends Screen
+ {
+@@ -51,6 +52,9 @@
+         p_169269_.setCurrentServer(p_169271_);
+         p_169269_.setScreen(connectscreen);
+         connectscreen.connect(p_169269_, p_169270_);
++        Reconnect.serverIP = p_169271_.ip;
++        Reconnect.lastScreen = p_169268_;
++        Reconnect.isLan = p_169271_.isLan();
+     }
+ 
+     private void connect(final Minecraft p_169265_, final ServerAddress p_169266_)
