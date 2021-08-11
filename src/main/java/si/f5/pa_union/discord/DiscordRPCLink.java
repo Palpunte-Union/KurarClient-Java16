@@ -39,7 +39,6 @@ public class DiscordRPCLink {
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.details = details;
         presence.state = UserName;
-        presence.startTimestamp = TimeStamp;
         presence.largeImageText = "Kurar Client";
         presence.largeImageKey = "1_17_kurar_logo";
         lib.Discord_UpdatePresence(presence);
