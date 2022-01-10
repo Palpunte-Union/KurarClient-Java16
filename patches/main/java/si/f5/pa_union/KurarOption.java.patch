@@ -1,0 +1,12 @@
+--- a/main/java/si/f5/pa_union/KurarOption.java
++++ /dev/null
+@@ -1,9 +0,0 @@
+-package si.f5.pa_union;
+-
+-public class KurarOption {
+-    public int version;
+-
+-    public KurarOption(int v) {
+-        version = v;
+-    }
+-}

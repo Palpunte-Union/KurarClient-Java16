@@ -1,16 +1,18 @@
 --- a/main/java/net/minecraft/client/Minecraft.java
 +++ b/main/java/net/minecraft/client/Minecraft.java
-@@ -253,6 +253,9 @@
+@@ -253,6 +253,11 @@
  import org.apache.logging.log4j.LogManager;
  import org.apache.logging.log4j.Logger;
  import org.lwjgl.util.tinyfd.TinyFileDialogs;
++import si.f5.pa_union.KurarClient;
 +import si.f5.pa_union.discord.DiscordRPCLink;
++import si.f5.pa_union.update.UpdateScreen;
 +import zsawyer.mods.mumblelink.MumbleLinkImpl;
 +import zsawyer.mods.mumblelink.UpdateTicker;
  
  public class Minecraft extends ReentrantBlockableEventLoop<Runnable> implements SnooperPopulator, WindowEventHandler
  {
-@@ -404,6 +407,7 @@
+@@ -404,6 +409,7 @@
          this.socialInteractionsService = this.createSocialInteractions(yggdrasilauthenticationservice, pGameConfig);
          this.user = pGameConfig.user.user;
          LOGGER.info("Setting user: {}", (Object)this.user.getName());
@@ -18,7 +20,29 @@
          LOGGER.debug("(Session ID is {})", (Object)this.user.getSessionId());
          this.demo = pGameConfig.game.demo;
          this.allowsMultiplayer = !pGameConfig.game.disableMultiplayer;
-@@ -586,13 +590,8 @@
+@@ -469,6 +475,7 @@
+         this.mainRenderTarget.setClearColor(0.0F, 0.0F, 0.0F, 0.0F);
+         this.mainRenderTarget.clear(ON_OSX);
+         this.resourceManager = new SimpleReloadableResourceManager(PackType.CLIENT_RESOURCES);
++        new KurarClient();
+         this.resourcePackRepository.reload();
+         this.options.loadSelectedResourcePacks(this.resourcePackRepository);
+         this.languageManager = new LanguageManager(this.options.languageCode);
+@@ -575,9 +582,13 @@
+         }
+         else
+         {
++            if (KurarClient.getOptions().isUpdated()) {
++                this.setScreen(new UpdateScreen(true));
++            } else {
+             this.setScreen(new TitleScreen(true));
+         }
+     }
++    }
+ 
+     public void updateTitle()
+     {
+@@ -586,13 +597,8 @@
  
      private String createTitle()
      {
@@ -33,7 +57,7 @@
          stringbuilder.append(" ");
          stringbuilder.append(SharedConstants.getCurrentVersion().getName());
          ClientPacketListener clientpacketlistener = this.getConnection();
-@@ -604,18 +603,22 @@
+@@ -604,18 +610,22 @@
              if (this.singleplayerServer != null && !this.singleplayerServer.isPublished())
              {
                  stringbuilder.append(I18n.m_118938_("title.singleplayer"));
@@ -56,11 +80,11 @@
              }
          }
  
-@@ -2051,7 +2054,10 @@
+@@ -2051,7 +2061,10 @@
          this.profiler.popPush("keyboard");
          this.keyboardHandler.tick();
          this.profiler.pop();
-+        if(UpdateTicker.i) {
++        if (UpdateTicker.i) {
 +            MumbleLinkImpl.instance.getUpdateTicker().tickEnd();
      }
 +    }

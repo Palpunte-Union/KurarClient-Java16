@@ -8,13 +8,13 @@
  
  public class ConnectScreen extends Screen
  {
-@@ -51,6 +52,9 @@
+@@ -50,6 +51,9 @@
+         p_169269_.clearLevel();
          p_169269_.setCurrentServer(p_169271_);
          p_169269_.setScreen(connectscreen);
-         connectscreen.connect(p_169269_, p_169270_);
 +        Reconnect.serverIP = p_169271_.ip;
 +        Reconnect.lastScreen = p_169268_;
 +        Reconnect.isLan = p_169271_.isLan();
+         connectscreen.connect(p_169269_, p_169270_);
      }
  
-     private void connect(final Minecraft p_169265_, final ServerAddress p_169266_)
